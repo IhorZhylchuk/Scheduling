@@ -17,7 +17,7 @@
           "lib/netstandard2.0/Humanizer.dll": {}
         }
       },
-      "jQuery/1.12.4": {
+      "jQuery/3.6.0": {
         "type": "package"
       },
       "jQuery.UI.Combined/1.12.1": {
@@ -1651,23 +1651,26 @@
         "logo.png"
       ]
     },
-    "jQuery/1.12.4": {
-      "sha512": "pIYtWlFI5PGlJVB8jm9H96pAQ27jQhA9sCxMeGweeC3ByQRaB8BwkIuGdTt4go3IEKTmmfRC2y5k0FLFizWDQg==",
+    "jQuery/3.6.0": {
+      "sha512": "sSzCTDWn15waSMjDrP21jjgG1j1pwISLaKiVCClwU4XGAmuZt+FScLkdyRvh9ppoIxAW/tJtJBYei+3CAwFQ7g==",
       "type": "package",
-      "path": "jquery/1.12.4",
+      "path": "jquery/3.6.0",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "Content/Scripts/jquery-1.12.4-vsdoc.js",
-        "Content/Scripts/jquery-1.12.4.js",
-        "Content/Scripts/jquery-1.12.4.min.js",
-        "Content/Scripts/jquery-1.12.4.min.map",
+        "Content/Scripts/jquery-3.6.0-vsdoc.js",
+        "Content/Scripts/jquery-3.6.0.js",
+        "Content/Scripts/jquery-3.6.0.min.js",
+        "Content/Scripts/jquery-3.6.0.min.map",
+        "Content/Scripts/jquery-3.6.0.slim.js",
+        "Content/Scripts/jquery-3.6.0.slim.min.js",
+        "Content/Scripts/jquery-3.6.0.slim.min.map",
         "Tools/common.ps1",
         "Tools/install.ps1",
-        "Tools/jquery-1.12.4.intellisense.js",
+        "Tools/jquery-3.6.0.intellisense.js",
         "Tools/uninstall.ps1",
-        "jquery.1.12.4.nupkg.sha512",
+        "jquery.3.6.0.nupkg.sha512",
         "jquery.nuspec"
       ]
     },
@@ -6105,6 +6108,7 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 5.0.9",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.9",
       "Twitter.Bootstrap >= 3.0.1.1",
+      "jQuery >= 3.6.0",
       "jQuery.UI.Combined >= 1.12.1",
       "jQuery.Validation >= 1.19.3"
     ]
@@ -6169,6 +6173,10 @@
           "Twitter.Bootstrap": {
             "target": "Package",
             "version": "[3.0.1.1, )"
+          },
+          "jQuery": {
+            "target": "Package",
+            "version": "[3.6.0, )"
           },
           "jQuery.UI.Combined": {
             "target": "Package",

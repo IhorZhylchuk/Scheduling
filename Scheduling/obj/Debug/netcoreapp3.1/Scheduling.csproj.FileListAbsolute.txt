@@ -88,3 +88,8 @@ C:\Users\Igor\source\repos\Scheduling\Scheduling\obj\Debug\netcoreapp3.1\Razor\V
 C:\Users\Igor\source\repos\Scheduling\Scheduling\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_MinLayout.cshtml.g.cs
 C:\Users\Igor\source\repos\Scheduling\Scheduling\bin\Debug\netcoreapp3.1\Humanizer.dll
 C:\Users\Igor\source\repos\Scheduling\Scheduling\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Igor\source\repos\Scheduling\Scheduling\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutMain.cshtml.g.cs
+C:\Users\Igor\source\repos\Scheduling\Scheduling\bin\Debug\netcoreapp3.1\libman.json
+C:\Users\Igor\source\repos\Scheduling\Scheduling\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index_1.cshtml.g.cs
+C:\Users\Igor\source\repos\Scheduling\Scheduling\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index_Oryginal_2.cshtml.g.cs
+C:\Users\Igor\source\repos\Scheduling\Scheduling\obj\Debug\netcoreapp3.1\Scheduling.csprojAssemblyReference.cache

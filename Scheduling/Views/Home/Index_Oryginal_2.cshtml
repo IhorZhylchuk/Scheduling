@@ -1,0 +1,314 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = null;
+    var error = ViewBag.Error;
+
+}
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="~/resources/img/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Light Bootstrap Dashboard by Creative Tim</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+
+    <!-- Bootstrap core CSS     -->
+    <link href="~/resources/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Animation library for notifications   -->
+    <link href="~/resources/css/animate.min.css" rel="stylesheet" />
+
+
+    <link href="~/resources/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet" />
+
+
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="~/resources/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+</head>
+<body>
+
+    <div class="wrapper">
+        <div class="sidebar" data-color="orange" data-image="~/resources/img/sidebar-5.jpg">
+
+            <!--
+
+        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+        Tip 2: you can also add an image using data-image tag
+
+    -->
+           
+                <div class="sidebar-wrapper">
+                    <div class="logo">
+                        <a asp-action="Index" asp-controller="Home" class="simple-text">
+                            McMed
+                        </a>
+                    </div>
+
+                    <ul class="nav">
+
+                        <li>
+                            <a href="user.html">
+                                <i class="pe-7s-user"></i>
+                                <p>My profile</p>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a asp-action="Index" asp-controller="Home">
+                                <i class="pe-7s-graph"></i>
+                                <p>Reservations</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="table.html">
+                                <i class="pe-7s-note2"></i>
+                                <p>Table List</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="typography.html">
+                                <i class="pe-7s-news-paper"></i>
+                                <p>Typography</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="icons.html">
+                                <i class="pe-7s-science"></i>
+                                <p>Icons</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="maps.html">
+                                <i class="pe-7s-map-marker"></i>
+                                <p>Maps</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="notifications.html">
+                                <i class="pe-7s-bell"></i>
+                                <p>Notifications</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+       
+
+        <div class="main-panel">
+            <div class="content">
+                <div class="container">
+                    <a class="btn btn-primary" style="float:right" onclick="MakeReservation('@Url.Action("Reservation", "Home")')">Make reservation</a>
+                </div>
+                <div class="container-fluid">
+
+
+                    <table id="reservations" class="table table-striped table-bordered display" style="width:100%; margin-top: 10px">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th class="styleTh" date>Date</th>
+                                <th class="styleTh">Time</th>
+                                <th class="styleTh">Specialist</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-right">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Company
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Portfolio
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Blog
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <p class="copyright pull-right">
+                    &copy;
+                    <script>document.write(new Date().getFullYear())</script>
+                </p>
+            </div>
+        </footer>
+
+    </div>
+
+
+
+
+
+    <!--   Core JS Files   -->
+
+    <script src="~/resources/js/jquery.3.2.1.min.js"></script>
+    <script src="~/resources/js/bootstrap.min.js"></script>
+    <script src="~/resources/js/bootstrap-notify.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+    <!--  Charts Plugin -->
+    <script src="~/resources/js/chartist.min.js"></script>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+
+
+    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
+    <script src="~/resources/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
+
+    <script>
+        var Popup, dataTable;
+
+        $(document).ready(function () {
+            dataTable = $('#reservations').DataTable({
+                dom: 'Bfrtip',
+                ajax: {
+                    url: '/Home/GetData',
+                    type: 'GET',
+                    dataSrc: ''
+                },
+                rowId: 'Id',
+                order: [[1, 'asc']],
+                columns: [
+                    { data: null, 'sortable': false, 'className': 'dt-center' },
+                    { data: 'date', 'className': 'dt-center', 'render': function (data) { return moment(data).format('D.M.YYYY') } },
+                    { data: 'time', 'className': 'dt-center' },
+                    { data: 'specialist', 'className': 'dt-center' },
+                    {
+                        data: 'id', 'className': 'dt-center', 'render': function (data) {
+                            return "<div style='width:100%; position: center'><div class='btn-group' role='group' id='groupButton'><a class='btn btn-danger btn-small' onclick=Delete(" + data + ") id='Delete' style = 'height: 5 %, initial; margin-left: 2px '><i class='fa fa-trash' aria-hidden='true'></i> Delete</a ></div></div >"
+                        },
+                        orderable: false,
+                        searchable: false,
+                        width: '150px'
+                    }
+                ],
+                language: {
+                    emptyTable: 'You have no reservations yet!'
+                }
+            });
+
+            $('#reservations').DataTable().on('order.dt search.dt', function () {
+                $('#reservations').DataTable().column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        });
+        function MakeReservation(url) {
+            var formDiv = $('<div/>');
+            $.get(url)
+                .done(function (response) {
+                    formDiv.html(response);
+                    Popup = formDiv.dialog({
+                        autoOpen: true,
+                        modal: true,
+                        draggable: true,
+                        position: { my: "center", at: "center", of: window },
+                        resizable: false,
+                        title: 'Make reservation',
+                        height: 550,
+                        width: 700,
+                        close: function () {
+                            $(this).closest('.ui-dialog-content').dialog('destroy').remove();
+                        }
+                    });
+                });
+        }
+        function SubmitForm(form) {
+            $.validator.unobtrusive.parse(form);
+            if ($(form).valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.action,
+                    data: $(form).serialize(),
+                    success: function (data) {
+                        if (data.success) {
+                            Popup.dialog('close');
+                            $("reservations").DataTable().ajax.reload();
+                        }
+                        /*
+                        else {
+                            $(function () {
+                                $.getScript("/Home/Reservation");
+                            });
+
+                            $(function () {
+                                $.ajax({
+                                    url: '/Home/Reservation',
+                                    type: "POST",
+                                    success: function (data) { alert(data.message) },
+                                });});
+
+                        }
+                        */
+                    }
+                });
+            }
+        }
+        function Delete(id) {
+                Swal.fire({
+                title: 'Delete this reservation?',
+                text: "You won't be able to revert this!",
+                icon: 'question',
+                showCancelButton: true,
+                showConfirmButton: true,
+                cancelButtonText: 'Cancel',
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                        }).then((result) => {
+            if (result.isConfirmed) {
+                    $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Delete", "Home")/' + id,
+                    success: function(data) {
+                        if (data.success) {
+                            $('#reservations').DataTable().ajax.reload(null, false);
+                            //setTimeout(function () { location.reload()}, 2000);
+                        }
+                    }
+                })
+                    Swal.fire(
+                        'Deleted!',
+                        'The item has been deleted.',
+                        'success'
+                    )
+                }
+                })
+        }
+
+    </script>
+</body>
+

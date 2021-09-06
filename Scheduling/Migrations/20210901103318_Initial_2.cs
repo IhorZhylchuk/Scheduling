@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Scheduling.Migrations
 {
-    public partial class Initial_1 : Migration
+    public partial class Initial_2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -52,26 +52,6 @@ namespace Scheduling.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Reservations",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Time = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Specialist = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TelNumber = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
-                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reservations", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -180,13 +160,40 @@ namespace Scheduling.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Reservations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Time = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Specialist = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TelNumber = table.Column<string>(type: "nvarchar(12)", maxLength: 12, nullable: false),
+                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reservations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reservations_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "a18be9c0-aa65-4af8-bd17-00bd9344e575", "76d11184-521e-4db7-a3bc-e7d6373c311a", "Admin", null },
-                    { "a12be9c5-aa65-4af6-bd97-00bd9344e575", "16ff0e89-c1f9-40fe-b531-960d2adcb372", "Doctor", null }
+                    { "a18be9c0-aa65-4af8-bd17-00bd9344e575", "91690d8d-0074-45cb-9dc9-5a57bb33f6f5", "Admin", null },
+                    { "a12be9c5-aa65-4af6-bd97-00bd9344e575", "3a6dc1ba-5dfe-445e-9735-899bb126b685", "Doctor", null }
                 });
 
             migrationBuilder.InsertData(
@@ -194,15 +201,15 @@ namespace Scheduling.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "DateOfBirth", "Discriminator", "Email", "EmailConfirmed", "Gender", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Specialisation", "Surname", "TelNumber", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "a12be9c5-aa65-4af6-bd97-00bd9344e575", 0, "ac1638cf-7c1a-4193-b9c8-2c89a723dd91", null, "MyDoctorsIdentity", "petegriu@gmail.com", true, "Male", false, null, "Peter", "petegriu@gmail.com", "Peter", "AQAAAAEAACcQAAAAELvZ5UPi2P4O/2BHRwpyMVlzpq6rvdRGOsiW8EVr2oMikm98c2OH7bxvc31kKhWElQ==", null, false, "", "Allergist/Immunologist", "Petegriu", "+48434343444", false, "Peter" },
-                    { "a12be9c5-aa65-4af6-bd97-00bd9344e5751d", 0, "a1cd2731-1c97-4dd2-a4a4-e0ac387c05ad", null, "MyDoctorsIdentity", "soros@gmail.com", true, "Female", false, null, "Anna", "soros@gmail.com", "Anna", "AQAAAAEAACcQAAAAENhCeQMvagHhBjVPmF0kgHpbt453Wp2i6pnaodVmNL0xXHZcAG4Ewd/0t2b/REZ6VA==", null, false, "", "Cardiologist", "Soros", "+48434343444", false, "Anna" },
-                    { "a12be9c5-aa65-4af6-bd97-00bd9344e5752d", 0, "c6095f35-1067-4b50-a67c-76b2ecf12e74", null, "MyDoctorsIdentity", "stupak@gmail.com", true, "Female", false, null, "Julia", "stupak@gmail.com", "Julia", "AQAAAAEAACcQAAAAEADR0TRAy44+FqcijoXusZcKd6yb/d14cAeFxBxZowmGLw5yMak4TTnzNIhwYeu0uQ==", null, false, "", "Dermatologist", "Stupak", "+48434343444", false, "Julia" }
+                    { "a12be9c5-aa65-4af6-bd97-00bd9344e575", 0, "39f6d328-3da5-47e6-9cd4-22f2c7d8bbd8", null, "MyDoctorsIdentity", "petegriu@gmail.com", true, "Male", false, null, "Peter", "petegriu@gmail.com", "Peter", "AQAAAAEAACcQAAAAEB2965NpKl0UWM+bQFSPANPy0QZhUwKAx69VFjExVLCiHTWhqcquB81av5Dkff29Hg==", null, false, "", "Allergist/Immunologist", "Petegriu", "+48434343444", false, "Peter" },
+                    { "a12be9c5-aa65-4af6-bd97-00bd9344e5751d", 0, "b83db11b-f723-4415-aba1-0a3a870ec519", null, "MyDoctorsIdentity", "soros@gmail.com", true, "Female", false, null, "Anna", "soros@gmail.com", "Anna", "AQAAAAEAACcQAAAAEF0ck5pY9Txq9qIATsq52zBUbZGiMwqtKO6YSubMt1D2bp+zyEfM8HdJgKaUS+8Hwg==", null, false, "", "Cardiologist", "Soros", "+48434343444", false, "Anna" },
+                    { "a12be9c5-aa65-4af6-bd97-00bd9344e5752d", 0, "136a79c7-514a-4c69-9be9-4695f75f15cd", null, "MyDoctorsIdentity", "stupak@gmail.com", true, "Female", false, null, "Julia", "stupak@gmail.com", "Julia", "AQAAAAEAACcQAAAAEL8NHJjBNJEuZDXeG712O25ODnelHQzZNw90ehQsUlTIgKCwoTIbULcLeA+b4ADpKg==", null, false, "", "Dermatologist", "Stupak", "+48434343444", false, "Julia" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "DateOfBirth", "Discriminator", "Email", "EmailConfirmed", "Gender", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Surname", "TelNumber", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "a18be9c0-aa65-4af8-bd17-00bd9344e575", 0, "1c71fd70-1311-4e1c-8e6d-94f653c536b4", null, "MyUsersIdentity", "sara@gmail.com", true, "Female", false, null, "Sara", "sara@gmail.com", "Sara", "AQAAAAEAACcQAAAAECD/KqW3j27xeZ8ZudU66Ike7Qm4yq2Cf8KJmjRZ3BAknFzCbkrYbt1csZtnH3FfwA==", null, false, "", "Konor", "+485756451", false, "Sara" });
+                values: new object[] { "a18be9c0-aa65-4af8-bd17-00bd9344e575", 0, "4911877f-c87f-40cd-9bc2-242e29fcb1b1", null, "MyUsersIdentity", "sara@gmail.com", true, "Female", false, null, "Sara", "sara@gmail.com", "Sara", "AQAAAAEAACcQAAAAEE3xJj5EZgQgV0JeQIQDBAmR3TahBhU4l/F2QyMRTkxk5PYDKdQTfWmDzQiemiDcLA==", null, false, "", "Konor", "+485756451", false, "Sara" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -253,6 +260,11 @@ namespace Scheduling.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_UserId",
+                table: "Reservations",
+                column: "UserId");
             
         }
 

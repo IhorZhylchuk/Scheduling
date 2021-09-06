@@ -30,14 +30,15 @@ namespace Scheduling.Controllers
         
         public JsonResult GetData()
         {
-            var result = dBContext.Reservations.ToList();
+
+            var result = dBContext.Reservations.ToList().Where(u => u.User == _userManager.GetUserAsync(User).Result);
             return Json(result);
         }
 
-        [Authorize]
+       // [Authorize]
         public IActionResult Index()
         {
-            
+            ViewBag.Hours = WorkingHours.GetHours();
             return View();
         }
 
@@ -150,6 +151,8 @@ namespace Scheduling.Controllers
         public async Task<IActionResult> Reservation(ReservationModel model)
         {
             ViewBag.Error = "";
+            var user = _userManager.GetUserAsync(User).Result;
+            MyUsersIdentity identity = user;
             if (ModelState.IsValid)
             {
                 try
@@ -165,7 +168,8 @@ namespace Scheduling.Controllers
                         Specialist = model.Specialist,
                         Surname = model.Surname,
                         TelNumber = model.TelNumber,
-                        Time = model.Time
+                        Time = model.Time,
+                        User = user
                     };
 
                     // int compareDates = DateTime.Compare(DateTime.Today, reservation.Date);
@@ -205,8 +209,8 @@ namespace Scheduling.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
-            //var reservation = await dBContext.Reservations.Where(i => i.Id == id).FirstOrDefaultAsync();
-           // dBContext.Reservations.Remove(reservation);
+            var reservation = dBContext.Reservations.Where(i => i.Id == id).FirstOrDefault();
+            dBContext.Reservations.Remove(reservation);
             await dBContext.SaveChangesAsync();
             return Json(new { success = true, message = "Deleted successfully" });
         }

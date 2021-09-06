@@ -49,13 +49,13 @@ namespace Scheduling.Migrations
                         new
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
-                            ConcurrencyStamp = "76d11184-521e-4db7-a3bc-e7d6373c311a",
+                            ConcurrencyStamp = "91690d8d-0074-45cb-9dc9-5a57bb33f6f5",
                             Name = "Admin"
                         },
                         new
                         {
                             Id = "a12be9c5-aa65-4af6-bd97-00bd9344e575",
-                            ConcurrencyStamp = "16ff0e89-c1f9-40fe-b531-960d2adcb372",
+                            ConcurrencyStamp = "3a6dc1ba-5dfe-445e-9735-899bb126b685",
                             Name = "Doctor"
                         });
                 });
@@ -276,7 +276,7 @@ namespace Scheduling.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1c71fd70-1311-4e1c-8e6d-94f653c536b4",
+                            ConcurrencyStamp = "4911877f-c87f-40cd-9bc2-242e29fcb1b1",
                             Email = "sara@gmail.com",
                             EmailConfirmed = true,
                             Gender = "Female",
@@ -284,7 +284,7 @@ namespace Scheduling.Migrations
                             Name = "Sara",
                             NormalizedEmail = "sara@gmail.com",
                             NormalizedUserName = "Sara",
-                            PasswordHash = "AQAAAAEAACcQAAAAECD/KqW3j27xeZ8ZudU66Ike7Qm4yq2Cf8KJmjRZ3BAknFzCbkrYbt1csZtnH3FfwA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEE3xJj5EZgQgV0JeQIQDBAmR3TahBhU4l/F2QyMRTkxk5PYDKdQTfWmDzQiemiDcLA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             Surname = "Konor",
@@ -333,7 +333,12 @@ namespace Scheduling.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Reservations");
                 });
@@ -352,7 +357,7 @@ namespace Scheduling.Migrations
                         {
                             Id = "a12be9c5-aa65-4af6-bd97-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ac1638cf-7c1a-4193-b9c8-2c89a723dd91",
+                            ConcurrencyStamp = "39f6d328-3da5-47e6-9cd4-22f2c7d8bbd8",
                             Email = "petegriu@gmail.com",
                             EmailConfirmed = true,
                             Gender = "Male",
@@ -360,7 +365,7 @@ namespace Scheduling.Migrations
                             Name = "Peter",
                             NormalizedEmail = "petegriu@gmail.com",
                             NormalizedUserName = "Peter",
-                            PasswordHash = "AQAAAAEAACcQAAAAELvZ5UPi2P4O/2BHRwpyMVlzpq6rvdRGOsiW8EVr2oMikm98c2OH7bxvc31kKhWElQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEB2965NpKl0UWM+bQFSPANPy0QZhUwKAx69VFjExVLCiHTWhqcquB81av5Dkff29Hg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             Surname = "Petegriu",
@@ -373,7 +378,7 @@ namespace Scheduling.Migrations
                         {
                             Id = "a12be9c5-aa65-4af6-bd97-00bd9344e5751d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a1cd2731-1c97-4dd2-a4a4-e0ac387c05ad",
+                            ConcurrencyStamp = "b83db11b-f723-4415-aba1-0a3a870ec519",
                             Email = "soros@gmail.com",
                             EmailConfirmed = true,
                             Gender = "Female",
@@ -381,7 +386,7 @@ namespace Scheduling.Migrations
                             Name = "Anna",
                             NormalizedEmail = "soros@gmail.com",
                             NormalizedUserName = "Anna",
-                            PasswordHash = "AQAAAAEAACcQAAAAENhCeQMvagHhBjVPmF0kgHpbt453Wp2i6pnaodVmNL0xXHZcAG4Ewd/0t2b/REZ6VA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEF0ck5pY9Txq9qIATsq52zBUbZGiMwqtKO6YSubMt1D2bp+zyEfM8HdJgKaUS+8Hwg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             Surname = "Soros",
@@ -394,7 +399,7 @@ namespace Scheduling.Migrations
                         {
                             Id = "a12be9c5-aa65-4af6-bd97-00bd9344e5752d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c6095f35-1067-4b50-a67c-76b2ecf12e74",
+                            ConcurrencyStamp = "136a79c7-514a-4c69-9be9-4695f75f15cd",
                             Email = "stupak@gmail.com",
                             EmailConfirmed = true,
                             Gender = "Female",
@@ -402,7 +407,7 @@ namespace Scheduling.Migrations
                             Name = "Julia",
                             NormalizedEmail = "stupak@gmail.com",
                             NormalizedUserName = "Julia",
-                            PasswordHash = "AQAAAAEAACcQAAAAEADR0TRAy44+FqcijoXusZcKd6yb/d14cAeFxBxZowmGLw5yMak4TTnzNIhwYeu0uQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEL8NHJjBNJEuZDXeG712O25ODnelHQzZNw90ehQsUlTIgKCwoTIbULcLeA+b4ADpKg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             Surname = "Stupak",
@@ -462,6 +467,15 @@ namespace Scheduling.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Scheduling.Models.ReservationModel", b =>
+                {
+                    b.HasOne("Scheduling.Models.MyUsersIdentity", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

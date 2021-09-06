@@ -27,7 +27,8 @@ namespace Scheduling.Models
         public string TelNumber { get; set; }
         [Required]
         public string Gender { get; set; }
-        //public int YourSelf { get; set; }
+        
+        public MyUsersIdentity User { get; set; }
 
     }
 }

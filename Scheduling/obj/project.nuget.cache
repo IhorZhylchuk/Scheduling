@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "41/6cJz5i5uzeqp/AK8i+NTobkyKx1p+uxiCcUiGdbGdGvG8z8/DOpg7EFWrLEmtzIsphNcvV4TNxWI1CX819g==",
+  "dgSpecHash": "cwbgDK7dXQnqYohP5im6IrVNecikraTj61Nzy+tiiFzq+vBvfnpbU0+3ns7ou0D4mKbtrjrKGBJS3ilRnsA+GA==",
   "success": true,
   "projectFilePath": "C:\\Users\\Igor\\source\\repos\\Scheduling\\Scheduling\\Scheduling.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Igor\\.nuget\\packages\\bootstrap\\3.0.1\\bootstrap.3.0.1.nupkg.sha512",
     "C:\\Users\\Igor\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
-    "C:\\Users\\Igor\\.nuget\\packages\\jquery\\1.12.4\\jquery.1.12.4.nupkg.sha512",
+    "C:\\Users\\Igor\\.nuget\\packages\\jquery\\3.6.0\\jquery.3.6.0.nupkg.sha512",
     "C:\\Users\\Igor\\.nuget\\packages\\jquery.ui.combined\\1.12.1\\jquery.ui.combined.1.12.1.nupkg.sha512",
     "C:\\Users\\Igor\\.nuget\\packages\\jquery.validation\\1.19.3\\jquery.validation.1.19.3.nupkg.sha512",
     "C:\\Users\\Igor\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.9\\microsoft.aspnetcore.cryptography.internal.5.0.9.nupkg.sha512",

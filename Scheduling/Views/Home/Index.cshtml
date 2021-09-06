@@ -1,44 +1,235 @@
-﻿@{
+﻿@model ReservationModel;
+@{
     ViewData["Title"] = "Home Page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
     var error = ViewBag.Error;
-
+    List<string> hours = ViewBag.Hours;
+    List<string> gender = new List<string>() { "Man", "Woman" };
+    List<string> doctors = new List<string>() { "Allergist/Immunologist", "Cardiologist", "Dermatologist","Endocrinologist", "Family Physician", "Gastroenterologist", "Internist", "Neurologist", "Ophthalmologist", "Physiatrist", "Pulmonologist" };
 }
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<header>
-    <a class="btn btn-primary" onclick="MakeReservation('@Url.Action("Reservation", "Home")')">Make reservation</a>
-    <a class="btn btn-primary" onclick="Click()">Some button</a>
-</header>
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="~/resources/img/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>Light Bootstrap Dashboard by Creative Tim</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <link href="~/resources/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/resources/css/animate.min.css" rel="stylesheet" />
+    <link href="~/resources/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="~/resources/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+
+</head>
 <body>
-    <table id="reservations" class="table table-striped table-bordered display" style="width:100%; margin-top: 10px">
-        <thead>
-            <tr>
-                <th></th>
-                <th class="styleTh" date>Date</th>
-                <th class="styleTh">Time</th>
-                <th class="styleTh">Specialist</th>
-                <th></th>
-            </tr>
-        </thead>
-    </table>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-lg">
 
-</body>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet" />
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+            <form asp-action="Reservation" asp-controller="Home" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <center><h4 class="modal-title">Reservation</h4></center>
+                    </div>
+                    <div class="modal-body">
 
-@section Scripts{
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="~/js/datepicker.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+                        <div class="form-group">
+                            <label asp-for="Name">Name</label>
+                            <input type="text" asp-for="Name" class="form-control" placeholder="Enter your name" />
+                            <label asp-for="Surname">Surname</label>
+                            <input type="text" asp-for="Surname" class="form-control" placeholder="Enter your surname" />
+
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Gender"></label>
+                            <select asp-for="Gender" asp-items="new SelectList(gender)">
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="TelNumber">Tel. number</label>
+                            <input asp-for="TelNumber" type="tel" class="form-control" placeholder="+48XXXXXXXXX" />
+                        </div>
+                        <div>
+                            <label asp-for="Email">Email</label>
+                            <input asp-for="Email" type="email" placeholder="Enter your email" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Date">Date</label>
+                            <input asp-for="Date" data-provide="datepicker" type="text" />
+                            <label asp-for="Time">Time</label>
+                            <select asp-for="Time" asp-items="new SelectList(hours)">
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Specialist"></label>
+                            <select asp-for="Specialist" asp-items="@new SelectList(doctors)" class="custom-select">
+                                <option selected disabled>Choose...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div style="position:center">
+                            <input type="submit" value="Submit" class="btn btn-primary" />
+                            <input type="reset" value="Reset" class="btn" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+    <div class="main-panel">
+        <div class="container">
+            <a class="btn btn-secondary" style="margin-top:10px; float:right; margin-right:50px" asp-action="LogOut" asp-controller="Home">Logout</a>
+        </div>
+        <div class="wrapper">
+            <div class="sidebar" data-color="orange">
+
+                <!--
+
+                    Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+                    Tip 2: you can also add an image using data-image tag
+
+                -->
+
+                <div class="sidebar-wrapper">
+                    <div class="logo">
+                        <a asp-action="Index" asp-controller="Home" class="simple-text">
+                            McMed
+                        </a>
+                    </div>
+
+                    <ul class="nav">
+
+                        <li>
+                            <a href="user.html">
+                                <i class="pe-7s-user"></i>
+                                <p>My profile</p>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a asp-action="Index" asp-controller="Home">
+                                <i class="pe-7s-graph"></i>
+                                <p>Reservations</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="table.html">
+                                <i class="pe-7s-note2"></i>
+                                <p>Table List</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="typography.html">
+                                <i class="pe-7s-news-paper"></i>
+                                <p>Typography</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="icons.html">
+                                <i class="pe-7s-science"></i>
+                                <p>Icons</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="maps.html">
+                                <i class="pe-7s-map-marker"></i>
+                                <p>Maps</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="notifications.html">
+                                <i class="pe-7s-bell"></i>
+                                <p>Notifications</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+            <div class="content">
+                <div class="container">
+                    <a class="btn btn-primary" style="margin-top:10px" data-toggle="modal" data-target="#myModal">Make reservation</a>
+                </div>
+                <div class="container-fluid">
+                    <table id="reservations" class="table table-striped table-bordered display" style=" margin-top: 10px">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th class="styleTh" date>Date</th>
+                                <th class="styleTh">Time</th>
+                                <th class="styleTh">Specialist</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-right">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Company
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Portfolio
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Blog
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <p class="copyright pull-right">
+                    &copy;
+                    <script>document.write(new Date().getFullYear())</script>
+                </p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+    <script src="~/resources/js/bootstrap.min.js"></script>
+    <script src="~/resources/js/bootstrap-notify.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+    <script src="~/resources/js/chartist.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="~/resources/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
+    <script src="~/datepicker.js"></script>
     <script>
         var Popup, dataTable;
-
-        
 
         $(document).ready(function () {
             dataTable = $('#reservations').DataTable({
@@ -68,69 +259,13 @@
                     emptyTable: 'You have no reservations yet!'
                 }
             });
-            
+
             $('#reservations').DataTable().on('order.dt search.dt', function () {
                 $('#reservations').DataTable().column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
                     cell.innerHTML = i + 1;
                 });
             }).draw();
         });
-
-        function Click() {
-            alert('Click');
-        }
-
-        function MakeReservation(url) {
-            var formDiv = $('<div/>');
-            $.get(url)
-                .done(function (response) {
-                    formDiv.html(response);
-                    Popup = formDiv.dialog({
-                        autoOpen: true,
-                        modal: true,
-                        draggable: true,
-                        position: { my: "center", at: "top", of: window },
-                        resizable: false,
-                        title: 'Make reservation',
-                        height: 550,
-                        width: 700,
-                        close: function () {
-                            $(this).closest('.ui-dialog-content').dialog('destroy').remove();
-                        }
-                    });
-                });
-        }
-        function SubmitForm(form) {
-            $.validator.unobtrusive.parse(form);
-            if ($(form).valid()) {
-                $.ajax({
-                    type: "POST",
-                    url: form.action,
-                    data: $(form).serialize(),
-                    success: function (data) {
-                        if (data.success) {
-                            Popup.dialog('close');
-                            $("reservations").DataTable().ajax.reload();
-                        }
-                        /*
-                        else {
-                            $(function () {
-                                $.getScript("/Home/Reservation");
-                            });
-                            
-                            $(function () {
-                                $.ajax({
-                                    url: '/Home/Reservation',
-                                    type: "POST",
-                                    success: function (data) { alert(data.message) },
-                                });});
-                                
-                        }
-                        */
-                    }
-                });
-            }
-        }
         function Delete(id) {
                 Swal.fire({
                 title: 'Delete this reservation?',
@@ -164,5 +299,5 @@
         }
 
     </script>
+</body>
 
-}
