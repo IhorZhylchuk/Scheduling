@@ -29,7 +29,6 @@ namespace Scheduling
         {
             services.AddDbContext<ApplicationDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<MyUsersIdentity, IdentityRole>().AddEntityFrameworkStores<ApplicationDBContext>().AddDefaultTokenProviders();
-            //services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection_2")));
             services.Configure<IdentityOptions>(options =>
             {
                 // Default Password settings.
@@ -68,7 +67,7 @@ namespace Scheduling
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                     pattern: "{controller=Home}/{action=Login}/{id?}");
 
             });
         }

@@ -1,0 +1,240 @@
+﻿@model MyUsersIdentity;
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = null;
+}
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="~/resources/img/favicon.ico">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>M-Med</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+    <link href="~/resources/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
+
+    <link href="~/resources/css/customStyle.css" rel="stylesheet" />
+    <link href="~/resources/css/animate.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="main-panel">
+        <div class="container">
+            <a class="btn btn-secondary" style="margin-top:10px; float:right; margin-right:50px" asp-action="LogOut" asp-controller="Home">Logout</a>
+        </div>
+        <div class="wrapper">
+            <div class="sidebar" data-color="orange">
+
+                <!--
+
+                    Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
+                    Tip 2: you can also add an image using data-image tag
+
+                -->
+
+                <div class="sidebar-wrapper">
+                    <div class="logo">
+                        <a asp-action="Index" asp-controller="Home" class="simple-text">
+                            M-Med
+                        </a>
+                    </div>
+
+                    <ul class="nav">
+
+                        <li class="active">
+                            <a asp-action="UsersProfile" asp-controller="Home">
+                                <i class="pe-7s-user"></i>
+                                <p>My profile</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-action="Index" asp-controller="Home">
+                                <i class="pe-7s-graph"></i>
+                                <p>Reservations</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-action="Specialists" asp-controller="Home">
+                                <i class="pe-7s-note2"></i>
+                                <p>Specialists</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="typography.html">
+                                <i class="pe-7s-news-paper"></i>
+                                <p>Typography</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="icons.html">
+                                <i class="pe-7s-science"></i>
+                                <p>Icons</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="maps.html">
+                                <i class="pe-7s-map-marker"></i>
+                                <p>Maps</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="notifications.html">
+                                <i class="pe-7s-bell"></i>
+                                <p>Notifications</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+            <div class="content">
+                <div class="container">
+
+                    <form class="well form-horizontal" asp-action="RegisterUser" asp-controller="Home" method="post" id="contact_form">
+                        <fieldset>
+
+
+                            <legend><center><h2><b>Registration</b></h2></center></legend><br>
+
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">First Name</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                        <input class="form-control" type="text" asp-for="Name" value="@Model.Name" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Last Name</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                        <input class="form-control" type="text" asp-for="Surname" value="@Model.Surname" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Gender</label>
+                                <div class="col-md-4 selectContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+                                        <input class="form-control" type="text" value="@Model.Gender" readonly/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Text input-->
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Date of birth</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                        <input asp-for="DateOfBirth" type="text" value="@Model.DateOfBirth" readonly/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">E-Mail</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                        <input class="form-control" type="text" asp-for="Email" value="@Model.Email">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Text input-->
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label">Contact No.</label>
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+                                        <input value="@Model.TelNumber" class="form-control" type="text" asp-for="TelNumber">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label class="col-md-4 control-label"></label>
+                                <div class="col-md-4">
+                                    <br>
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button type="submit" class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSUBMIT <span class="glyphicon glyphicon-send"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-right">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Company
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Portfolio
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Blog
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <p class="copyright pull-right">
+                    &copy;
+                    <script>document.write(new Date().getFullYear())</script>
+                </p>
+            </div>
+        </footer>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="~/resources/js/bootstrap-notify.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+    <script src="~/resources/js/chartist.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="~/resources/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
+
+</body>
+

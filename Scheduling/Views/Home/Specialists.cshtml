@@ -2,11 +2,10 @@
 @{
     ViewData["Title"] = "Home Page";
     Layout = null;
-    var specialisation = ViewBag.Specialisations;
     var error = ViewBag.Error;
     List<string> hours = ViewBag.Hours;
     List<string> gender = new List<string>() { "Man", "Woman" };
-    //List<string> doctors = new List<string>() { "Allergist/Immunologist", "Cardiologist", "Dermatologist","Endocrinologist", "Family Physician", "Gastroenterologist", "Internist", "Neurologist", "Ophthalmologist", "Physiatrist", "Pulmonologist" };
+    List<string> doctors = new List<string>() { "Allergist/Immunologist", "Cardiologist", "Dermatologist", "Endocrinologist", "Family Physician", "Gastroenterologist", "Internist", "Neurologist", "Ophthalmologist", "Physiatrist", "Pulmonologist" };
 }
 
 <head>
@@ -14,7 +13,7 @@
     <link rel="icon" type="image/png" href="~/resources/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>M-Med</title>
+    <title>Light Bootstrap Dashboard by Creative Tim</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -36,6 +35,7 @@
 </head>
 
 <body>
+
     <div id="myModal" class="modal fade" role="form">
         <div class="modal-dialog modal-sm">
 
@@ -51,21 +51,21 @@
                             <input asp-for="Date" type="text" class="datepicker" data-provide="datepicker-inline" />
                             <span asp-validation-for="Date" class="field-validation-valid text-danger"></span>
                         </div>
-                            <div class="form-group">
-                                <label asp-for="Time">Time</label>
-                                <select asp-for="Time" asp-items="new SelectList(hours)">
-                                </select>
-                                <span asp-validation-for="Time" class="field-validation-valid text-danger"></span>
-                            </div>
-
-                            <div class="form-group">
-                                <label asp-for="Specialist"></label>
-                                <select asp-for="Specialist" asp-items="@new SelectList(specialisation)" class="custom-select">
-                                    <option selected disabled>Choose...</option>
-                                </select>
-                                <span asp-validation-for="Specialist" class="field-validation-valid text-danger"></span>
-                            </div>
+                        <div class="form-group">
+                            <label asp-for="Time">Time</label>
+                            <select asp-for="Time" asp-items="new SelectList(hours)">
+                            </select>
+                            <span asp-validation-for="Time" class="field-validation-valid text-danger"></span>
                         </div>
+
+                        <div class="form-group">
+                            <label asp-for="Specialist"></label>
+                            <select asp-for="Specialist" asp-items="@new SelectList(doctors)" class="custom-select">
+                                <option selected disabled>Choose...</option>
+                            </select>
+                            <span asp-validation-for="Specialist" class="field-validation-valid text-danger"></span>
+                        </div>
+                    </div>
                     <div class="modal-footer" style="width:100%">
                         <div style="position:center">
                             <input type="submit" value="Submit" class="btn btn-primary" />
@@ -103,7 +103,7 @@
                     <ul class="nav">
 
                         <li>
-                            <a asp-action="UsersProfile" asp-controller="Home">
+                            <a href="user.html">
                                 <i class="pe-7s-user"></i>
                                 <p>My profile</p>
                             </a>
@@ -117,7 +117,7 @@
                         <li>
                             <a href="table.html">
                                 <i class="pe-7s-note2"></i>
-                                <p>Specialists</p>
+                                <p>Table List</p>
                             </a>
                         </li>
                         <li>
@@ -233,9 +233,8 @@
                 order: [[1, 'asc']],
                 columns: [
                     { data: null, 'sortable': false, 'className': 'dt-center' },
-                     { data: 'specialist', 'className': 'dt-center' },
+                    { data: 'specialist', 'className': 'dt-center' },
                     { data: 'time', 'className': 'dt-center' },
-                   
                     { data: 'date', 'className': 'dt-center', 'render': function (data) { return moment(data).format('D.M.YYYY') } },
 
                     {

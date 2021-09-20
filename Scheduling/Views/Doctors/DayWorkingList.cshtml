@@ -1,12 +1,7 @@
-﻿@model ReservationModel;
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
     Layout = null;
-    var specialisation = ViewBag.Specialisations;
     var error = ViewBag.Error;
-    List<string> hours = ViewBag.Hours;
-    List<string> gender = new List<string>() { "Man", "Woman" };
-    //List<string> doctors = new List<string>() { "Allergist/Immunologist", "Cardiologist", "Dermatologist","Endocrinologist", "Family Physician", "Gastroenterologist", "Internist", "Neurologist", "Ophthalmologist", "Physiatrist", "Pulmonologist" };
 }
 
 <head>
@@ -22,7 +17,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" />
 
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -36,55 +30,12 @@
 </head>
 
 <body>
-    <div id="myModal" class="modal fade" role="form">
-        <div class="modal-dialog modal-sm">
-
-            <form asp-action="Reservation" asp-controller="Home" method="post">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <center><h4 class="modal-title">Reservation</h4></center>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label asp-for="Date">Date</label>
-                            <input asp-for="Date" type="text" class="datepicker" data-provide="datepicker-inline" />
-                            <span asp-validation-for="Date" class="field-validation-valid text-danger"></span>
-                        </div>
-                            <div class="form-group">
-                                <label asp-for="Time">Time</label>
-                                <select asp-for="Time" asp-items="new SelectList(hours)">
-                                </select>
-                                <span asp-validation-for="Time" class="field-validation-valid text-danger"></span>
-                            </div>
-
-                            <div class="form-group">
-                                <label asp-for="Specialist"></label>
-                                <select asp-for="Specialist" asp-items="@new SelectList(specialisation)" class="custom-select">
-                                    <option selected disabled>Choose...</option>
-                                </select>
-                                <span asp-validation-for="Specialist" class="field-validation-valid text-danger"></span>
-                            </div>
-                        </div>
-                    <div class="modal-footer" style="width:100%">
-                        <div style="position:center">
-                            <input type="submit" value="Submit" class="btn btn-primary" />
-                            <input type="reset" value="Reset" class="btn btn-secondary" />
-                        </div>
-                    </div>
-                </div>
-
-            </form>
-
-        </div>
-
-    </div>
     <div class="main-panel">
         <div class="container">
             <a class="btn btn-secondary" style="margin-top:10px; float:right; margin-right:50px" asp-action="LogOut" asp-controller="Home">Logout</a>
         </div>
         <div class="wrapper">
-            <div class="sidebar" data-color="orange">
+            <div class="sidebar" data-color="blue">
 
                 <!--
 
@@ -101,17 +52,10 @@
                     </div>
 
                     <ul class="nav">
-
-                        <li>
-                            <a asp-action="UsersProfile" asp-controller="Home">
-                                <i class="pe-7s-user"></i>
-                                <p>My profile</p>
-                            </a>
-                        </li>
                         <li class="active">
-                            <a asp-action="Index" asp-controller="Home">
+                            <a asp-action="DayWorkingList" asp-controller="Doctors">
                                 <i class="pe-7s-graph"></i>
-                                <p>Reservations</p>
+                                <p>Today's patients</p>
                             </a>
                         </li>
                         <li>
@@ -159,7 +103,7 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th class="styleTh">Specialist</th>
+                                <th class="styleTh">Patient's name and surname</th>
                                 <th class="styleTh">Time</th>
                                 <th class="styleTh" date>Date</th>
                                 <th></th>
@@ -233,14 +177,17 @@
                 order: [[1, 'asc']],
                 columns: [
                     { data: null, 'sortable': false, 'className': 'dt-center' },
-                     { data: 'specialist', 'className': 'dt-center' },
+                    { data: 'name_surname', 'className': 'dt-center' },
                     { data: 'time', 'className': 'dt-center' },
-                   
+
                     { data: 'date', 'className': 'dt-center', 'render': function (data) { return moment(data).format('D.M.YYYY') } },
 
                     {
                         data: 'id', 'className': 'dt-center', 'render': function (data) {
-                            return "<div style='width:100%; position: center'><div class='btn-group' role='group' id='groupButton'><a class='btn btn-danger btn-small' onclick=Delete(" + data + ") id='Delete' style = 'height: 5 %, initial; margin-left: 2px '><i class='fa fa-trash' aria-hidden='true'></i> Delete</a ></div></div >"
+                            return "<div style='width:100%; float: left'><div class='btn-group' role='group' id='groupButton'><a class='btn btn-secondary btn-small' onclick=Visit(" + data + ") id='Visit' style = 'height: 5 %, initial; margin-left: 2px '><i class='fa fa-medkit' aria-hidden='true'></i> Delete</a ></div></div >"
+                        },
+                        data: 'id', 'className': 'dt-center', 'render': function (data) {
+                            return "<div style='width:100%; float: right'><div class='btn-group' role='group' id='groupButton'><a class='btn btn-danger btn-small' onclick=Delete(" + data + ") id='Delete' style = 'height: 5 %, initial; margin-left: 2px '><i class='fa fa-trash' aria-hidden='true'></i> Delete</a ></div></div >"
                         },
                         orderable: false,
                         searchable: false,
@@ -303,4 +250,3 @@
         });
     </script>
 </body>
-

@@ -13,6 +13,7 @@ namespace Scheduling.Models
         public string TelNumber { get; set; }
         public string Gender { get; set; }
         public string DateOfBirth { get; set; }
+        public string Specialization { get; set; }
         
     }
 }

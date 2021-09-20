@@ -18,8 +18,8 @@ namespace Scheduling.Controllers
         private readonly SignInManager<MyUsersIdentity> _signInManager;
         private readonly UserManager<MyUsersIdentity> _userManager;
        // private readonly AppDbContext _appDbContext;
-      
-       
+        
+
         public HomeController(ApplicationDBContext context, SignInManager<MyUsersIdentity> signInManager, UserManager<MyUsersIdentity> userManager)
         {
             _userManager = userManager;
@@ -27,20 +27,40 @@ namespace Scheduling.Controllers
             _signInManager = signInManager;
             
         }
+       
         
         public JsonResult GetData()
         {
 
             var result = dBContext.Reservations.ToList().Where(u => u.User == _userManager.GetUserAsync(User).Result);
             return Json(result);
+
+  
         }
 
-       // [Authorize]
+        [HttpGet]
+        public IActionResult UsersProfile() 
+        {
+            var user = _userManager.GetUserAsync(User).Result;
+
+            return View(user);
+        }
+
+        public async Task<IActionResult> UsersProfile(MyUsersIdentity myUser)
+        {
+            dBContext.Users.Update(myUser);
+            await dBContext.SaveChangesAsync();
+            return View();
+        }
+   
+        // [Authorize]
         public IActionResult Index()
         {
             ViewBag.Hours = WorkingHours.GetHours();
+            ViewBag.Specialisations = (dBContext.Users.Where(s => s.Specialization != null).Select(u => u).ToList()).Select(s =>s.Specialization +" (" + s.Name + " " + s.Surname + ")").ToList();
             return View();
         }
+       
 
         [HttpGet]
         public IActionResult RegisterUser()
@@ -144,6 +164,7 @@ namespace Scheduling.Controllers
         public IActionResult Reservation()
         {
             ViewBag.Hours = WorkingHours.GetHours();
+           
             return View();
             
         }
@@ -152,7 +173,7 @@ namespace Scheduling.Controllers
         {
             ViewBag.Error = "";
             var user = _userManager.GetUserAsync(User).Result;
-            MyUsersIdentity identity = user;
+
             if (ModelState.IsValid)
             {
                 try
@@ -162,12 +183,7 @@ namespace Scheduling.Controllers
                     {
                         Id = model.Id,
                         Date = model.Date,
-                        Email = model.Email,
-                        Gender = model.Gender,
-                        Name = model.Name,
                         Specialist = model.Specialist,
-                        Surname = model.Surname,
-                        TelNumber = model.TelNumber,
                         Time = model.Time,
                         User = user
                     };
@@ -186,7 +202,7 @@ namespace Scheduling.Controllers
                     //  else
                     //   {
                     await dBContext.Reservations.AddAsync(reservation);
-                     dBContext.SaveChanges();
+                    dBContext.SaveChanges();
                     //return Json(new { success = true, message = "Saved successfully" });
                     return RedirectToAction("Index");
                 }

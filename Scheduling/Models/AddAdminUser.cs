@@ -47,9 +47,9 @@ namespace Scheduling.Models
                 SecurityStamp = string.Empty
             };
 
-            List<MyDoctorsIdentity> myDoctors = new List<MyDoctorsIdentity>()
+            List<MyUsersIdentity> myDoctors = new List<MyUsersIdentity>()
             {
-                new MyDoctorsIdentity
+                new MyUsersIdentity
                 {
                 Id = DOCTORS_ID,
                 Name = "Peter",
@@ -61,11 +61,11 @@ namespace Scheduling.Models
                 Gender = "Male",
                 TelNumber = "+48434343444",
                 Email = "petegriu@gmail.com",
-                Specialisation = "Allergist/Immunologist",
+                Specialization = "Allergist/Immunologist",
                 PasswordHash = hasher.HashPassword(null, "demo"),
                 SecurityStamp = string.Empty
                 },
-                new MyDoctorsIdentity
+                new MyUsersIdentity
                 {
                 Id = DOCTORS_ID+"1d",
                 Name = "Anna",
@@ -77,11 +77,11 @@ namespace Scheduling.Models
                 Gender = "Female",
                 TelNumber = "+48434343444",
                 Email = "soros@gmail.com",
-                Specialisation = "Cardiologist",
+                Specialization = "Cardiologist",
                 PasswordHash = hasher.HashPassword(null, "demo"),
                 SecurityStamp = string.Empty
                 },
-                new MyDoctorsIdentity
+                new MyUsersIdentity
                 {
                 Id = DOCTORS_ID+"2d",
                 Name = "Julia",
@@ -93,14 +93,14 @@ namespace Scheduling.Models
                 Gender = "Female",
                 TelNumber = "+48434343444",
                 Email = "stupak@gmail.com",
-                Specialisation = "Dermatologist",
+                Specialization = "Dermatologist",
                 PasswordHash = hasher.HashPassword(null, "demo"),
                 SecurityStamp = string.Empty
                 }
             };
 
             modelBuilder.Entity<MyUsersIdentity>().HasData(admin);
-            modelBuilder.Entity<MyDoctorsIdentity>().HasData(myDoctors);
+            modelBuilder.Entity<MyUsersIdentity>().HasData(myDoctors);
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
             {
                 RoleId = ROLE_ADM_ID,

@@ -10,8 +10,8 @@ using Scheduling.Models;
 namespace Scheduling.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20210901103318_Initial_2")]
-    partial class Initial_2
+    [Migration("20210919185552_Initial_1")]
+    partial class Initial_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,13 +51,13 @@ namespace Scheduling.Migrations
                         new
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
-                            ConcurrencyStamp = "91690d8d-0074-45cb-9dc9-5a57bb33f6f5",
+                            ConcurrencyStamp = "6b6f9286-c694-4ddf-90c3-f32088753276",
                             Name = "Admin"
                         },
                         new
                         {
                             Id = "a12be9c5-aa65-4af6-bd97-00bd9344e575",
-                            ConcurrencyStamp = "3a6dc1ba-5dfe-445e-9735-899bb126b685",
+                            ConcurrencyStamp = "c0a12411-09d5-4fa9-a103-7dd16093e205",
                             Name = "Doctor"
                         });
                 });
@@ -203,10 +203,6 @@ namespace Scheduling.Migrations
                     b.Property<string>("DateOfBirth")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -246,6 +242,9 @@ namespace Scheduling.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Specialization")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
@@ -271,14 +270,12 @@ namespace Scheduling.Migrations
 
                     b.ToTable("AspNetUsers");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("MyUsersIdentity");
-
                     b.HasData(
                         new
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4911877f-c87f-40cd-9bc2-242e29fcb1b1",
+                            ConcurrencyStamp = "9804ab03-8d27-4150-a269-b0783434e605",
                             Email = "sara@gmail.com",
                             EmailConfirmed = true,
                             Gender = "Female",
@@ -286,13 +283,76 @@ namespace Scheduling.Migrations
                             Name = "Sara",
                             NormalizedEmail = "sara@gmail.com",
                             NormalizedUserName = "Sara",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE3xJj5EZgQgV0JeQIQDBAmR3TahBhU4l/F2QyMRTkxk5PYDKdQTfWmDzQiemiDcLA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBfT+SGVDnPk8I1lV8xn/rUWhcLx0VHB73LY+zHtUJJouyCtYyehv9pXiqNjh8gzRg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             Surname = "Konor",
                             TelNumber = "+485756451",
                             TwoFactorEnabled = false,
                             UserName = "Sara"
+                        },
+                        new
+                        {
+                            Id = "a12be9c5-aa65-4af6-bd97-00bd9344e575",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "67047119-f6ff-4c86-8630-5d0e296e01af",
+                            Email = "petegriu@gmail.com",
+                            EmailConfirmed = true,
+                            Gender = "Male",
+                            LockoutEnabled = false,
+                            Name = "Peter",
+                            NormalizedEmail = "petegriu@gmail.com",
+                            NormalizedUserName = "Peter",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFmG4iFfuIkGSRgliKS1pKb3n8b9KQ+RAgXCdfVnZKp8/bo1LZgqihCJPd+uplVxwQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            Specialization = "Allergist/Immunologist",
+                            Surname = "Petegriu",
+                            TelNumber = "+48434343444",
+                            TwoFactorEnabled = false,
+                            UserName = "Peter"
+                        },
+                        new
+                        {
+                            Id = "a12be9c5-aa65-4af6-bd97-00bd9344e5751d",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "1188037a-10e9-490f-b7db-1047964e2698",
+                            Email = "soros@gmail.com",
+                            EmailConfirmed = true,
+                            Gender = "Female",
+                            LockoutEnabled = false,
+                            Name = "Anna",
+                            NormalizedEmail = "soros@gmail.com",
+                            NormalizedUserName = "Anna",
+                            PasswordHash = "AQAAAAEAACcQAAAAEB54SRQe3nAcCqwm2X31zaScm+p0JuvF/toGzP35WHG/SE142PV3cdYu4xon3nyk8w==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            Specialization = "Cardiologist",
+                            Surname = "Soros",
+                            TelNumber = "+48434343444",
+                            TwoFactorEnabled = false,
+                            UserName = "Anna"
+                        },
+                        new
+                        {
+                            Id = "a12be9c5-aa65-4af6-bd97-00bd9344e5752d",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "4a6f05d5-bc66-47ea-98e7-d93952c49bf4",
+                            Email = "stupak@gmail.com",
+                            EmailConfirmed = true,
+                            Gender = "Female",
+                            LockoutEnabled = false,
+                            Name = "Julia",
+                            NormalizedEmail = "stupak@gmail.com",
+                            NormalizedUserName = "Julia",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHhLEx6Q/rSlXMTaz824Lw9wYeDFS0mr7BkWbNxC23YwXY3/+th+o2C2Hngz34jy+g==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            Specialization = "Dermatologist",
+                            Surname = "Stupak",
+                            TelNumber = "+48434343444",
+                            TwoFactorEnabled = false,
+                            UserName = "Julia"
                         });
                 });
 
@@ -306,30 +366,9 @@ namespace Scheduling.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Specialist")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TelNumber")
-                        .IsRequired()
-                        .HasMaxLength(12)
-                        .HasColumnType("nvarchar(12)");
 
                     b.Property<string>("Time")
                         .IsRequired()
@@ -343,81 +382,6 @@ namespace Scheduling.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Reservations");
-                });
-
-            modelBuilder.Entity("Scheduling.Models.MyDoctorsIdentity", b =>
-                {
-                    b.HasBaseType("Scheduling.Models.MyUsersIdentity");
-
-                    b.Property<string>("Specialisation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("MyDoctorsIdentity");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "a12be9c5-aa65-4af6-bd97-00bd9344e575",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "39f6d328-3da5-47e6-9cd4-22f2c7d8bbd8",
-                            Email = "petegriu@gmail.com",
-                            EmailConfirmed = true,
-                            Gender = "Male",
-                            LockoutEnabled = false,
-                            Name = "Peter",
-                            NormalizedEmail = "petegriu@gmail.com",
-                            NormalizedUserName = "Peter",
-                            PasswordHash = "AQAAAAEAACcQAAAAEB2965NpKl0UWM+bQFSPANPy0QZhUwKAx69VFjExVLCiHTWhqcquB81av5Dkff29Hg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            Surname = "Petegriu",
-                            TelNumber = "+48434343444",
-                            TwoFactorEnabled = false,
-                            UserName = "Peter",
-                            Specialisation = "Allergist/Immunologist"
-                        },
-                        new
-                        {
-                            Id = "a12be9c5-aa65-4af6-bd97-00bd9344e5751d",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "b83db11b-f723-4415-aba1-0a3a870ec519",
-                            Email = "soros@gmail.com",
-                            EmailConfirmed = true,
-                            Gender = "Female",
-                            LockoutEnabled = false,
-                            Name = "Anna",
-                            NormalizedEmail = "soros@gmail.com",
-                            NormalizedUserName = "Anna",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF0ck5pY9Txq9qIATsq52zBUbZGiMwqtKO6YSubMt1D2bp+zyEfM8HdJgKaUS+8Hwg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            Surname = "Soros",
-                            TelNumber = "+48434343444",
-                            TwoFactorEnabled = false,
-                            UserName = "Anna",
-                            Specialisation = "Cardiologist"
-                        },
-                        new
-                        {
-                            Id = "a12be9c5-aa65-4af6-bd97-00bd9344e5752d",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "136a79c7-514a-4c69-9be9-4695f75f15cd",
-                            Email = "stupak@gmail.com",
-                            EmailConfirmed = true,
-                            Gender = "Female",
-                            LockoutEnabled = false,
-                            Name = "Julia",
-                            NormalizedEmail = "stupak@gmail.com",
-                            NormalizedUserName = "Julia",
-                            PasswordHash = "AQAAAAEAACcQAAAAEL8NHJjBNJEuZDXeG712O25ODnelHQzZNw90ehQsUlTIgKCwoTIbULcLeA+b4ADpKg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            Surname = "Stupak",
-                            TelNumber = "+48434343444",
-                            TwoFactorEnabled = false,
-                            UserName = "Julia",
-                            Specialisation = "Dermatologist"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "cwbgDK7dXQnqYohP5im6IrVNecikraTj61Nzy+tiiFzq+vBvfnpbU0+3ns7ou0D4mKbtrjrKGBJS3ilRnsA+GA==",
+  "dgSpecHash": "/gG0707bXmFYSC5ZgdjF9VYko6y22Q7+e6u3KKKxSnBz3ABPkyi0Np4OzT4FgEtPBFbgatzyjBa5upmrk2ZYEg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Igor\\source\\repos\\Scheduling\\Scheduling\\Scheduling.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Igor\\.nuget\\packages\\bootstrap\\3.0.1\\bootstrap.3.0.1.nupkg.sha512",
+    "C:\\Users\\Igor\\.nuget\\packages\\bootstrap.datepicker\\1.8.0.1\\bootstrap.datepicker.1.8.0.1.nupkg.sha512",
     "C:\\Users\\Igor\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Igor\\.nuget\\packages\\jquery\\3.6.0\\jquery.3.6.0.nupkg.sha512",
     "C:\\Users\\Igor\\.nuget\\packages\\jquery.ui.combined\\1.12.1\\jquery.ui.combined.1.12.1.nupkg.sha512",

@@ -27,6 +27,7 @@ namespace Scheduling.Models
 
         [Required]
         [Display(Name = "Tel.number")]
+        //[Phone]
         public string TelNumber { get; set; }
 
 
