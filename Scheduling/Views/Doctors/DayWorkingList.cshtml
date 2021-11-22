@@ -169,7 +169,7 @@
             dataTable = $('#reservations').DataTable({
                 dom: 'Bfrtip',
                 ajax: {
-                    url: '/Home/GetData',
+                    url: '/Doctors/GetData',
                     type: 'GET',
                     dataSrc: ''
                 },
@@ -177,7 +177,7 @@
                 order: [[1, 'asc']],
                 columns: [
                     { data: null, 'sortable': false, 'className': 'dt-center' },
-                    { data: 'name_surname', 'className': 'dt-center' },
+                    { data: 'userNameSurname', 'className': 'dt-center' },
                     { data: 'time', 'className': 'dt-center' },
 
                     { data: 'date', 'className': 'dt-center', 'render': function (data) { return moment(data).format('D.M.YYYY') } },

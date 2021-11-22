@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Identity.Core;
 using Scheduling.Models;
 
 namespace Scheduling
@@ -67,7 +68,7 @@ namespace Scheduling
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                     pattern: "{controller=Home}/{action=Login}/{id?}");
+                     pattern: "{controller=Home}/{action=TimeSlot}/{id?}");
 
             });
         }

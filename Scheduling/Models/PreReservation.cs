@@ -6,20 +6,17 @@ using System.Threading.Tasks;
 
 namespace Scheduling.Models
 {
-    public class ReservationModel
+    public class PreReservation
     {
         public int Id { get; set; }
 
-        //[DataType(DataType.Date)]
+        [DataType(DataType.Date)]
         [Required]
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
         [Required]
         public string Time { get; set; }
-        [Required]
-        public string Specialist { get; set; }
-        public MyUsersIdentity SpecialistName { get; set; }
+        // [Required]
+        public string Doctor { get; set; }
         public MyUsersIdentity User { get; set; }
-        public string UserNameSurname { get; set; }
-
     }
 }

@@ -17,9 +17,7 @@ namespace Scheduling.Controllers
         private readonly ApplicationDBContext dBContext;
         private readonly SignInManager<MyUsersIdentity> _signInManager;
         private readonly UserManager<MyUsersIdentity> _userManager;
-       // private readonly AppDbContext _appDbContext;
         
-
         public HomeController(ApplicationDBContext context, SignInManager<MyUsersIdentity> signInManager, UserManager<MyUsersIdentity> userManager)
         {
             _userManager = userManager;
@@ -27,17 +25,49 @@ namespace Scheduling.Controllers
             _signInManager = signInManager;
             
         }
-       
-        
+
+        //[Authorize]
         public JsonResult GetData()
         {
-
+            
             var result = dBContext.Reservations.ToList().Where(u => u.User == _userManager.GetUserAsync(User).Result);
+            if(result == null)
+            {
+                return Json("");
+            }
+            
             return Json(result);
 
-  
+
         }
 
+        public async Task<JsonResult> GetSlots(string specialist, string date)
+        {
+            //var reservations = dBContext.Reservations.ToList();
+            // работает 
+            var reservations = await dBContext.Reservations.Where(d => d.Date == date && d.Specialist == specialist).Select(t => t.Time).ToListAsync();
+
+            //var reservations = await dBContext.Reservations.Where(d => d.Date == dateTime).Where(s => s.Specialist == specialist).Select(t => t.Time).ToListAsync();
+            var result = WorkingHours.GetHours().Except(reservations);
+
+            if (result == null)
+           {
+               return Json("No free time slots");
+          }
+            return Json(result);
+        }
+        
+  
+        public async Task<IActionResult> TimeSlot(string specialist)
+        {
+            var reservations = await dBContext.Reservations.Where(s => s.Specialist == specialist).Select(t => t.Time).ToListAsync();
+            //ViewBag.Hours = WorkingHours.GetHours().Except(reservations);
+            ViewBag.Hours = reservations;
+            ViewBag.Specializations = dBContext.Users.Where(s => s.Specialization != null).Select(u => u.Specialization + " ( " + u.Name + " " + u.Surname + " )");
+            return View();
+        }
+
+        [Authorize]
         [HttpGet]
         public IActionResult UsersProfile() 
         {
@@ -45,7 +75,7 @@ namespace Scheduling.Controllers
 
             return View(user);
         }
-
+        [Authorize]
         public async Task<IActionResult> UsersProfile(MyUsersIdentity myUser)
         {
             dBContext.Users.Update(myUser);
@@ -53,11 +83,11 @@ namespace Scheduling.Controllers
             return View();
         }
    
-        // [Authorize]
+       // [Authorize]
         public IActionResult Index()
         {
             ViewBag.Hours = WorkingHours.GetHours();
-            ViewBag.Specialisations = (dBContext.Users.Where(s => s.Specialization != null).Select(u => u).ToList()).Select(s =>s.Specialization +" (" + s.Name + " " + s.Surname + ")").ToList();
+            ViewBag.Specializations = dBContext.Users.Where(s => s.Specialization != null).Select(u => u.Specialization + " ( " + u.Name + " " + u.Surname + " )");
             return View();
         }
        
@@ -138,7 +168,7 @@ namespace Scheduling.Controllers
                         {
                             if (_userManager.GetRolesAsync(user).Result.FirstOrDefault() == "Doctor")
                             {
-                                return RedirectToAction("Index", "Doctors");
+                                return RedirectToAction("DayWorkingList", "Doctors");
                             }
                             else
                             {
@@ -160,6 +190,7 @@ namespace Scheduling.Controllers
             }
             return View();
         }
+       // [Authorize]
         [HttpGet]
         public IActionResult Reservation()
         {
@@ -168,24 +199,23 @@ namespace Scheduling.Controllers
             return View();
             
         }
+        //[Authorize]
         [HttpPost]
         public async Task<IActionResult> Reservation(ReservationModel model)
         {
-            ViewBag.Error = "";
-            var user = _userManager.GetUserAsync(User).Result;
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-
+                    ViewBag.Error = "";
+                    var user = _userManager.Users.FirstOrDefault();
+                    var doctor = dBContext.Users.Where(u => (u.Specialization + " ( " + u.Name + " " + u.Surname + " )") == model.Specialist).Select(user => user).FirstOrDefault();
+                    
                     ReservationModel reservation = new ReservationModel
                     {
                         Id = model.Id,
                         Date = model.Date,
-                        Specialist = model.Specialist,
                         Time = model.Time,
-                        User = user
+                        Specialist = model.Specialist,
+                        SpecialistName = doctor,
+                        User = user, 
+                        UserNameSurname = user.Name + " " + user.Surname
                     };
 
                     // int compareDates = DateTime.Compare(DateTime.Today, reservation.Date);
@@ -204,24 +234,20 @@ namespace Scheduling.Controllers
                     await dBContext.Reservations.AddAsync(reservation);
                     dBContext.SaveChanges();
                     //return Json(new { success = true, message = "Saved successfully" });
-                    return RedirectToAction("Index");
-                }
-                catch(Exception e)
-                {
-                    ModelState.AddModelError("Error",e.Message.ToString());
-                }
+                    return RedirectToAction("TimeSlot");
+               
                 // }
 
                 //return Json(new {success = true, message = "Added!"});
                 //return new JavaScriptResult("swal({text: 'Make sure that dates are correct!',icon: 'error',}); ");
-            }
-            return RedirectToAction("Index");
+            
+            //return RedirectToAction("Index");
         }
         public IActionResult Error()
         {
             return View();
         }
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {

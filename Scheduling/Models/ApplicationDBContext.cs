@@ -14,7 +14,7 @@ namespace Scheduling.Models
 
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> dbContext): base(dbContext)
         {
-            Database.EnsureCreated();
+            //Database.EnsureCreated();
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
