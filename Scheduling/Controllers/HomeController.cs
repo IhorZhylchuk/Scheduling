@@ -40,6 +40,11 @@ namespace Scheduling.Controllers
 
 
         }
+        public async Task<JsonResult> GetDoctor(string doc)
+        {
+            var result = await dBContext.Users.Where(s => s.Specialization != null).Where(n => (n.Name + ' ' + n.Surname) == doc).FirstOrDefaultAsync();
+            return Json(result);
+        }
 
         public async Task<JsonResult> GetSlots(string specialist, string date)
         {
@@ -56,8 +61,15 @@ namespace Scheduling.Controllers
           }
             return Json(result);
         }
-        
-  
+        [HttpGet]
+        public async Task<IActionResult> MakeReservation()
+        {
+           // var doctor = await dBContext.Users.Where(i => i.Id == id).FirstOrDefaultAsync();
+            return View(new ReservationModel());
+        }
+
+
+
         public async Task<IActionResult> TimeSlot(string specialist)
         {
             var reservations = await dBContext.Reservations.Where(s => s.Specialist == specialist).Select(t => t.Time).ToListAsync();
@@ -144,6 +156,7 @@ namespace Scheduling.Controllers
 
            return View();
         }
+        
         [HttpGet]
         public IActionResult Login()
         {
@@ -191,14 +204,17 @@ namespace Scheduling.Controllers
             return View();
         }
        // [Authorize]
-        [HttpGet]
-        public IActionResult Reservation()
+       [HttpGet]
+       public async Task<IActionResult> Reservation(string id)
         {
-            ViewBag.Hours = WorkingHours.GetHours();
-           
-            return View();
-            
+            if (id != null)
+            {
+                var user = await dBContext.Users.Where(i => i.Id == id).FirstOrDefaultAsync();
+                return View(user);
+            }
+            return NotFound();
         }
+
         //[Authorize]
         [HttpPost]
         public async Task<IActionResult> Reservation(ReservationModel model)
@@ -256,6 +272,13 @@ namespace Scheduling.Controllers
             await dBContext.SaveChangesAsync();
             return Json(new { success = true, message = "Deleted successfully" });
         }
+
+        public async Task<IActionResult> Specialists()
+        {
+            ViewData["Doctors"] = await dBContext.Users.Where(s => s.Specialization != null).ToListAsync();
+            return View();
+        }
+
         [HttpGet]
         public async Task<IActionResult> LogOut()
         {

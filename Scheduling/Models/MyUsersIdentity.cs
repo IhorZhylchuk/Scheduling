@@ -14,6 +14,6 @@ namespace Scheduling.Models
         public string Gender { get; set; }
         public string DateOfBirth { get; set; }
         public string Specialization { get; set; }
-        
+        public string ProfileImagePath { get; set; }
     }
 }

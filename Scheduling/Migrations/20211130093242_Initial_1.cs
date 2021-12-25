@@ -32,6 +32,7 @@ namespace Scheduling.Migrations
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateOfBirth = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Specialization = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProfileImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -193,19 +194,19 @@ namespace Scheduling.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "a18be9c0-aa65-4af8-bd17-00bd9344e575", "823d7d5c-dd51-497c-815c-4caf81782417", "Admin", null },
-                    { "a12be9c5-aa65-4af6-bd97-00bd9344e575", "dae34240-7982-4023-8a81-c293ed6f08c6", "Doctor", null }
+                    { "a18be9c0-aa65-4af8-bd17-00bd9344e575", "8dc82667-ed16-4587-9219-6ffc49b89059", "Admin", null },
+                    { "a12be9c5-aa65-4af6-bd97-00bd9344e575", "ffb2b95c-3440-4a6b-ae35-c82703cff6a2", "Doctor", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "DateOfBirth", "Email", "EmailConfirmed", "Gender", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "Specialization", "Surname", "TelNumber", "TwoFactorEnabled", "UserName" },
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "DateOfBirth", "Email", "EmailConfirmed", "Gender", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "ProfileImagePath", "SecurityStamp", "Specialization", "Surname", "TelNumber", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "a18be9c0-aa65-4af8-bd17-00bd9344e575", 0, "11ae941c-ce00-4d3f-b752-412654e4ede2", null, "sara@gmail.com", true, "Female", false, null, "Sara", "sara@gmail.com", "Sara", "AQAAAAEAACcQAAAAEPmuqHfBe30vS6zQYG2QBDZdmriuL4sQxTm6oZWbMLaZn1YCS1N7uC6SUnW87DPtuQ==", null, false, "", null, "Konor", "+485756451", false, "Sara" },
-                    { "a12be9c5-aa65-4af6-bd97-00bd9344e575", 0, "e432432e-2db1-49b6-840b-f25ef5626159", null, "petegriu@gmail.com", true, null, false, null, "Peter", "petegriu@gmail.com", "Peter", "AQAAAAEAACcQAAAAEGZZsXsmH/Mebv5BawurHGPpKHUbYqU4cl7IbLNKSshr4jm1bva9LnvpxTSWc/RE/w==", null, false, "", "Allergist/Immunologist", "Petegriu", "+48434343444", false, "Peter" },
-                    { "a12be9c5-aa65-4af6-bd97-00bd9344e5751d", 0, "4c012dba-b1b8-4922-9c8f-571244193293", null, "soros@gmail.com", true, null, false, null, "Anna", "soros@gmail.com", "Anna", "AQAAAAEAACcQAAAAEFgqi9X9nG9wQKlOzkOw7BRLQb1nLEBiw6fnw20yFuBr/eJSqDwWrc+ZN9GUnze26g==", null, false, "", "Cardiologist", "Soros", "+48434343444", false, "Anna" },
-                    { "a12be9c5-aa65-4af6-bd97-00bd9344e5752d", 0, "5cdbb995-6450-4f1d-8ea8-3bb9827082b3", null, "stupak@gmail.com", true, null, false, null, "Julia", "stupak@gmail.com", "Julia", "AQAAAAEAACcQAAAAEOuMLlLr1gN1BP7EH38KN+kXFDlUKcg1tKrDf952dZw7wMMvkazl2ll5f7s1RcFanQ==", null, false, "", "Dermatologist", "Stupak", "+48434343444", false, "Julia" }
+                    { "a18be9c0-aa65-4af8-bd17-00bd9344e575", 0, "c44a48a3-491e-4304-9721-ae725f096427", null, "sara@gmail.com", true, "Female", false, null, "Sara", "sara@gmail.com", "Sara", "AQAAAAEAACcQAAAAECs8dfKI7ETdgRl4sxYL/qWZnYbdhH2Yg22xdoZWlfNgzHD1aovEc4Bhe59sPdznsw==", null, false, "doctor.png", "", null, "Konor", "+485756451", false, "Sara" },
+                    { "a12be9c5-aa65-4af6-bd97-00bd9344e575", 0, "dcb53027-ee39-4d9a-bffc-3bcdf3fb7851", null, "petegriu@gmail.com", true, null, false, null, "Peter", "petegriu@gmail.com", "Peter", "AQAAAAEAACcQAAAAEKWiTixp6BSx1JHMfJ4IW+xMfEIBthN0VQA2x7iVv9GU5jR1h6VsxyJVqmKE2Fr1Dw==", null, false, "doctor_1.png", "", "Allergist/Immunologist", "Petegriu", "+48434343444", false, "Peter" },
+                    { "a12be9c5-aa65-4af6-bd97-00bd9344e5751d", 0, "dd2d7966-f585-4f1e-8a1d-6cc16301f076", null, "soros@gmail.com", true, null, false, null, "Anna", "soros@gmail.com", "Anna", "AQAAAAEAACcQAAAAEIypmn5wwzWmTOti1xZkWiMryiRra9zSVOMu+TLz2xOZ0A1Z6ztOuyqC4dZTVTTs7g==", null, false, "doctor.png", "", "Cardiologist", "Soros", "+48434343444", false, "Anna" },
+                    { "a12be9c5-aa65-4af6-bd97-00bd9344e5752d", 0, "aa0738e4-0b77-4565-ac02-edfe2388b0dd", null, "stupak@gmail.com", true, null, false, null, "Julia", "stupak@gmail.com", "Julia", "AQAAAAEAACcQAAAAEIfr0aTbi0JwHvHGY0++3RF+TgJdF2e+oIcBMU1lH3oXYWp+D81TTQMmvAZRIbFH0Q==", null, false, "doctor.png", "", "Dermatologist", "Stupak", "+48434343444", false, "Julia" }
                 });
 
             migrationBuilder.InsertData(

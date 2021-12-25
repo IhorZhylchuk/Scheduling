@@ -1,19 +1,85 @@
-﻿@model ReservationModel;
+﻿@model ReservationModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Specialists";
     Layout = null;
     var error = ViewBag.Error;
-    List<string> hours = ViewBag.Hours;
-    List<string> gender = new List<string>() { "Man", "Woman" };
-    List<string> doctors = new List<string>() { "Allergist/Immunologist", "Cardiologist", "Dermatologist", "Endocrinologist", "Family Physician", "Gastroenterologist", "Internist", "Neurologist", "Ophthalmologist", "Physiatrist", "Pulmonologist" };
+    var user = ViewBag.User;
 }
+@{ 
+    IEnumerable<MyUsersIdentity> doctors = ViewData["Doctors"] as IEnumerable<MyUsersIdentity>;
+}
+<style>
 
+    .center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    div.ui-datepicker {
+        font-size: 15px;
+    }
+    /*
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        padding: 5px;
+    }
+
+    .grid-item {
+        background-color: rgba(255, 255, 255, 0.8);
+        border: 0.5px solid rgba(0, 0, 0, 0.8);
+        padding: 10px;
+        font-size: 10px;
+        text-align: center;
+    }
+
+    #feedback {
+        font-size: 1.4em;
+    }
+
+    #content .ui-selecting {
+        background: #FECA40;
+    }
+
+    #content .ui-selected {
+        background: #F39814;
+
+    }
+        */
+    #data {
+        width: 100%;
+    }
+
+    #content, #datePicker, #doctorsList {
+        width: 100%;
+        text-align: center;
+        font-size: large;
+        padding: 5px;
+    }
+
+    #card {
+        margin-right: 20px;
+        margin-left: 5px;
+        border: 2px solid black;
+        height: 230px;
+        width: auto;
+        padding: 10px;
+    }
+
+    #panel {
+        height: 250px;
+    }
+</style>
 <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="~/resources/img/favicon.ico">
+    <link href="~/resources/css/customStyle.css" rel="stylesheet" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-    <title>Light Bootstrap Dashboard by Creative Tim</title>
+    <title>M-Med</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -34,12 +100,11 @@
     <link href="~/resources/css/animate.min.css" rel="stylesheet" />
 </head>
 
-<body>
-
-    <div id="myModal" class="modal fade" role="form">
+<body style="overflow-x:hidden; overflow-y:visible" id="body">
+    <div id="myModal" style="margin-top:50px;" class="modal fade" role="dialog">
         <div class="modal-dialog modal-sm">
 
-            <form asp-action="Reservation" asp-controller="Home" method="post">
+            <form asp-action="Reservation" asp-controller="Home" method="post" id="form">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -48,27 +113,28 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label asp-for="Date">Date</label>
-                            <input asp-for="Date" type="text" class="datepicker" data-provide="datepicker-inline" />
+                            <input asp-for="Date" class="datepicker" type="text" id="datePicker" />
                             <span asp-validation-for="Date" class="field-validation-valid text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Time">Time</label>
-                            <select asp-for="Time" asp-items="new SelectList(hours)">
-                            </select>
-                            <span asp-validation-for="Time" class="field-validation-valid text-danger"></span>
-                        </div>
 
+                        </div>
                         <div class="form-group">
                             <label asp-for="Specialist"></label>
-                            <select asp-for="Specialist" asp-items="@new SelectList(doctors)" class="custom-select">
-                                <option selected disabled>Choose...</option>
-                            </select>
+                            <input asp-for="Specialist" type="text" class="form-control" id="doctor" value="" disabled/>
                             <span asp-validation-for="Specialist" class="field-validation-valid text-danger"></span>
                         </div>
+                        <div id="data" hidden>
+                            <div class="input-group-prepend">
+                                <label asp-for="Time"></label>
+                            </div>
+                            <select id="content" class="custom-select" asp-for="Time" hidden>
+                            </select>
+                        </div>
+
                     </div>
-                    <div class="modal-footer" style="width:100%">
-                        <div style="position:center">
-                            <input type="submit" value="Submit" class="btn btn-primary" />
+
+                    <div class="modal-footer" style="width:100%; position: relative; padding:30px;">
+                        <div class="center">
+                            <input type="submit" value="Submit" class="btn btn-primary" onclick="Reload()" />
                             <input type="reset" value="Reset" class="btn btn-secondary" />
                         </div>
                     </div>
@@ -103,21 +169,21 @@
                     <ul class="nav">
 
                         <li>
-                            <a href="user.html">
+                            <a asp-action="UsersProfile" asp-controller="Home">
                                 <i class="pe-7s-user"></i>
                                 <p>My profile</p>
                             </a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a asp-action="Index" asp-controller="Home">
                                 <i class="pe-7s-graph"></i>
                                 <p>Reservations</p>
                             </a>
                         </li>
-                        <li>
-                            <a href="table.html">
+                        <li class="active">
+                            <a asp-action="Specialists" asp-controller="Home">
                                 <i class="pe-7s-note2"></i>
-                                <p>Table List</p>
+                                <p>Specialists</p>
                             </a>
                         </li>
                         <li>
@@ -147,26 +213,86 @@
                     </ul>
                 </div>
             </div>
-
-
-
-            <div class="content">
-                <div class="container">
-                    <a class="btn btn-primary" style="margin-top:10px" data-toggle="modal" data-target="#myModal">Make reservation</a>
-                </div>
-                <div class="container-fluid">
-                    <table id="reservations" class="table table-striped table-bordered display" style=" margin-top: 10px">
-                        <thead>
+            <div class="content" style="margin-top:50px;">
+                <div class="container" style="width: 100%;">
+                    <table style="width: 100%;">
+                        @foreach (var doctor in doctors)
+                        {
                             <tr>
-                                <th></th>
-                                <th class="styleTh">Specialist</th>
-                                <th class="styleTh">Time</th>
-                                <th class="styleTh" date>Date</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                    </table>
+                                <td>
+                                    <div class="panel panel-default" id="panel">
+                                        <div class="panel panel-body" id="panel">
+                                            <div class="row" id="panel" style="width: 100%;">
+                                                <div class="col-md-2">
+                                                    <div style="float:left !important; margin-top:20px">
 
+                                                        <img src="~/resources/img/@doctor.ProfileImagePath" style="height:150px;width:150px;" />
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-offset-3" id="doctorsName">
+                                                    <a href="#" id="doctorsName">@Html.DisplayFor(item => doctor.Name)</a>
+                                                    <p>@Html.DisplayFor(item => doctor.Specialization)</p>
+                                                    <h5>Education</h5>
+                                                    <p>Some text here</p>
+                                                    <div>
+                                                        <p>Rating blok</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3" style="width:70%; margin-top:20px;">
+                                                    <div class="panel-footer" style="width:70%;background-color:transparent;border-top-color:transparent;">
+                                                        <a class="btn btn-primary" data-content="@doctor.Specialization (@doctor.Name  @doctor.Surname)" data-whatever="@doctor.Specialization (@doctor.Name  @doctor.Surname)" data-toggle="modal" data-target="#myModal">Make reservation</a>
+                                                        <a class="btn btn-primary" data-content="@doctor.Specialization (@doctor.Name  @doctor.Surname)" data-whatever="@doctor.Specialization (@doctor.Name  @doctor.Surname)" id="getDoc" onclick="GetDoc()">GetDoctor</a>
+                                                        <a class="btn btn-secondary">Opinions</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <p>List</p>
+                <div class="container">
+                    <table style="width: 100%;">
+                        @foreach (var doctor in doctors)
+                        {
+                            <tr>
+                                <td>
+                                    <div class="panel panel-default" id="panel">
+                                        <div class="panel panel-body" id="panel">
+                                            <div class="row" id="panel" style="width: 100%;">
+                                                <div class="col-md-2">
+                                                    <div style="float:left !important; margin-top:20px">
+
+                                                        <img src="~/resources/img/@doctor.ProfileImagePath" style="height:150px;width:150px;" />
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-offset-3" id="doctorsName">
+                                                    <a href="#" id="doctorsName">@Html.DisplayFor(item => doctor.Name)</a>
+                                                    <p>@Html.DisplayFor(item => doctor.Specialization)</p>
+                                                    <h5>Education</h5>
+                                                    <p>Some text here</p>
+                                                    <div>
+                                                        <p>Rating blok</p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3" style="width:70%; margin-top:20px;">
+                                                    <div class="panel-footer" style="width:70%;background-color:transparent;border-top-color:transparent;">
+                                                        <a class="btn btn-primary"  onclick="MakeReservation()">Make reservation</a>
+                                                        <a class="btn btn-secondary">Opinions</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </table>
                 </div>
             </div>
         </div>
@@ -219,87 +345,199 @@
     <script src="~/resources/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
 
     <script>
-        var Popup, dataTable;
+        var Popup, dataTable, dateText;
 
-        $(document).ready(function () {
-            dataTable = $('#reservations').DataTable({
-                dom: 'Bfrtip',
-                ajax: {
-                    url: '/Home/GetData',
-                    type: 'GET',
-                    dataSrc: ''
-                },
-                rowId: 'Id',
-                order: [[1, 'asc']],
-                columns: [
-                    { data: null, 'sortable': false, 'className': 'dt-center' },
-                    { data: 'specialist', 'className': 'dt-center' },
-                    { data: 'time', 'className': 'dt-center' },
-                    { data: 'date', 'className': 'dt-center', 'render': function (data) { return moment(data).format('D.M.YYYY') } },
-
-                    {
-                        data: 'id', 'className': 'dt-center', 'render': function (data) {
-                            return "<div style='width:100%; position: center'><div class='btn-group' role='group' id='groupButton'><a class='btn btn-danger btn-small' onclick=Delete(" + data + ") id='Delete' style = 'height: 5 %, initial; margin-left: 2px '><i class='fa fa-trash' aria-hidden='true'></i> Delete</a ></div></div >"
-                        },
-                        orderable: false,
-                        searchable: false,
-                        width: '150px'
-                    }
-                ],
-                language: {
-                    emptyTable: 'You have no reservations yet!'
+     $(document).ready(function () {
+         
+        
+        
+            $.ajax({
+                success: function () {
+                    $('#doctor').empty();
+                    $('#content').empty();
+                    $("#datePicker").empty();
                 }
+            })
+            $('#myModal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget);
+                var recipient = button.data('whatever');
+                var modal = $(this);
+                var input = document.getElementById('doctor');
+                var data = button.data('content');
+
+                //$('#doctor').empty();-------->
+
+                //$("#datePicker").empty();
+                //input.setRangeText(data.slice(0));---------->
+                //input.value = '';
+                modal.find('.modal-body #doctor').val(data);
+                // input.setRangeText(data);
+                // $('#datePicker').datepicker('setDate', null);
+
+                //input.value = '';
+                //input.value =' ';
+                //$('#doctor').empty();
+                //$("#datePicker").empty();
+                //modal.find('.modal-body #doctor').val(recipient); это работает
+                // modal.find('.modal-body #doctor').val(recipient);
+                //document.getElementById('doctor').setAttribute('value', recipient);
+            });
+            $('#myModal').on('hidden.bs.modal', function () {
+                location.reload();
+            });
+            $('.datepicker').datepicker({
+                dateFormat: 'dd.mm.yy',
+                minDate: new Date(),
+                maxDate: '+2w',
+
+                onSelect: function (date, doctor) {
+                    doctor = $('#doctor').serialize();
+                    if (doctor != null) {
+                        $.ajax({
+                            type: 'Get',
+                            url: '/Home/GetSlots',
+                            data: jQuery.param({ 'specialist': doctor, 'date': date }),
+                            dataType: 'json',
+                            success: function (time) {
+                                $('#content').empty();
+                                ReturnGrid(time);
+
+                                // $("#selectable").selectable();
+                                //полная перезагрузка страницы
+                                //window.location.reload();
+                            }
+                        })
+
+                    }
+                },
+                beforeShowDay: $.datepicker.noWeekends
             });
 
-            $('#reservations').DataTable().on('order.dt search.dt', function () {
-                $('#reservations').DataTable().column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
-                    cell.innerHTML = i + 1;
-                });
-            }).draw();
-        });
-
-        function Delete(id) {
-                Swal.fire({
-                title: 'Delete this reservation?',
-                text: "You won't be able to revert this!",
-                icon: 'question',
-                showCancelButton: true,
-                showConfirmButton: true,
-                cancelButtonText: 'Cancel',
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-                        }).then((result) => {
-            if (result.isConfirmed) {
-                    $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("Delete", "Home")/' + id,
-                    success: function(data) {
-                        if (data.success) {
-                            $('#reservations').DataTable().ajax.reload(null, false);
-                            //setTimeout(function () { location.reload()}, 2000);
+     });
+        function MakeReservation() {
+            var formDiv = $('<div/>');
+            $.get()
+                .done(function (response) {
+                    formDiv.html(response);
+                    Popup = formDiv.dialog({
+                        autoOpen: true,
+                        modal: true,
+                        draggable: false,
+                        position: { my: "center", at: "top", of: window },
+                        resizable: false,
+                       
+                        height: 400,
+                        width: 300,
+                        close: function () {
+                            $(this).closest('.ui-dialog-content').dialog('destroy').remove();
                         }
+                    });
+                });
+        }
+        function GetDoc() {
+            //var getDoc = document.getElementById('getDoc').data('whatever');
+            //var getDoc = $('#getDoc').data('whatever');
+             //   $.ajax({
+                   // data: data,
+                    //type: 'Get',
+                    //url: 'Home/GetDoctor',
+                    //data: getDoc,
+                  //  success: function () {
+                  ///     // var getDoc = document.getElementById('getDoc').value;
+                      //  var doc = $('#getDoc').data('content');
+                     //  return alert(doc);
+                    //}
+            //})
+            //alert(getDoc);
+            var element = $(this);
+            var _data = element.attr('data-content');
+            alert(_data);
+            /*
+            $.ajax({
+                type: 'GET',
+                data: _data,
+                success: function (data) {
+                    alert(data);
+                }
+            });
+            */
+        }
+        function ReturnGrid(time) {
+            $.each(time, function (index, value) {
+                //document.getElementById("timeList").style.visibility = 'visible';
+
+                //$("#content").append('<option>' + value + '</option>');
+                $("#data").show();
+                $("#content").show();
+                $("#content").append('<option id="option">' + value + '</option>');
+                //$("#content").append('<div class="grid-item"><input id="input" asp-for="Time" value="' + value +'" disabled/></div>')
+                //$("#timeList").append('<div class="grid-item"><option>' + value + '</option></div>');
+                //$("#content").append('<div id="selectable" onclick="Selectable()"><p class= "ui-state-default">' + value + '</p></div>');
+                //$("#content").append('<div class="grid-item"><p class="ui-widget-content" id="selectable">'+ value +'</p></div>');
+
+
+            })
+            //$("#selectable").selectable();
+
+        }
+
+        function Click() {
+            var name = document.getElementById('doctor');
+            document.getElementById('myModal').style.display = '';
+            
+            //alert(text);
+        }
+
+        function ResultFucntion() {
+            var doctor = document.getElementById('doctorsList').value;
+            var date = document.getElementById('datePicker').value;
+            if (date.length == 10) {
+                $.ajax({
+                    type: 'Get',
+                    url: '/Home/GetSlots',
+                    data: jQuery.param({ 'specialist': doctor, 'date': date }),
+                    dataType: 'json',
+                    success: function (time) {
+                        $('#content').empty();
+                        ReturnGrid(time);
+                        //$("#selectable").selectable();
                     }
                 })
-                    Swal.fire(
-                        'Deleted!',
-                        'The item has been deleted.',
-                        'success'
-                    )
-                }
-                })
+            }
         }
-        $.fn.datepicker.defaults.format = "dd/mm/yyyy";
         $('.datepicker').datepicker({
-            daysOfWeekDisabled: [6,0],
-            orientation: 'bottom right',
-            todayHighlight: true,
-            showWeekDays: true,
-            weekStart: 1,
-            startDate: new Date(),
-            endDate: '+10d',
-            autoclose:true
+            dateFormat: 'dd.mm.yy',
+            minDate: new Date(),
+            maxDate: '+2w',
+
+            onSelect: function (date, doctor) {
+                doctor = $('#doctorsList option:selected').text();
+                if (doctor != "Choose...") {
+                    $.ajax({
+                        type: 'Get',
+                        url: '/Home/GetSlots',
+                        data: jQuery.param({ 'specialist': doctor, 'date': date }),
+                        dataType: 'json',
+                        success: function (time) {
+                            $('#content').empty();
+                            ReturnGrid(time);
+
+                            // $("#selectable").selectable();
+                            //полная перезагрузка страницы
+                            //window.location.reload();
+                        }
+                    })
+
+                }
+            },
+            beforeShowDay: $.datepicker.noWeekends
         });
+      
+        function Selectable() {
+            $("#content").selectable();
+        }
+       
+       
     </script>
 </body>
 

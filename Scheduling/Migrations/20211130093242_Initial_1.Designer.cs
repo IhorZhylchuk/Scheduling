@@ -10,7 +10,7 @@ using Scheduling.Models;
 namespace Scheduling.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20211120222046_Initial_1")]
+    [Migration("20211130093242_Initial_1")]
     partial class Initial_1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -51,13 +51,13 @@ namespace Scheduling.Migrations
                         new
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
-                            ConcurrencyStamp = "823d7d5c-dd51-497c-815c-4caf81782417",
+                            ConcurrencyStamp = "8dc82667-ed16-4587-9219-6ffc49b89059",
                             Name = "Admin"
                         },
                         new
                         {
                             Id = "a12be9c5-aa65-4af6-bd97-00bd9344e575",
-                            ConcurrencyStamp = "dae34240-7982-4023-8a81-c293ed6f08c6",
+                            ConcurrencyStamp = "ffb2b95c-3440-4a6b-ae35-c82703cff6a2",
                             Name = "Doctor"
                         });
                 });
@@ -239,6 +239,9 @@ namespace Scheduling.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ProfileImagePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -275,7 +278,7 @@ namespace Scheduling.Migrations
                         {
                             Id = "a18be9c0-aa65-4af8-bd17-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "11ae941c-ce00-4d3f-b752-412654e4ede2",
+                            ConcurrencyStamp = "c44a48a3-491e-4304-9721-ae725f096427",
                             Email = "sara@gmail.com",
                             EmailConfirmed = true,
                             Gender = "Female",
@@ -283,8 +286,9 @@ namespace Scheduling.Migrations
                             Name = "Sara",
                             NormalizedEmail = "sara@gmail.com",
                             NormalizedUserName = "Sara",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPmuqHfBe30vS6zQYG2QBDZdmriuL4sQxTm6oZWbMLaZn1YCS1N7uC6SUnW87DPtuQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECs8dfKI7ETdgRl4sxYL/qWZnYbdhH2Yg22xdoZWlfNgzHD1aovEc4Bhe59sPdznsw==",
                             PhoneNumberConfirmed = false,
+                            ProfileImagePath = "doctor.png",
                             SecurityStamp = "",
                             Surname = "Konor",
                             TelNumber = "+485756451",
@@ -295,15 +299,16 @@ namespace Scheduling.Migrations
                         {
                             Id = "a12be9c5-aa65-4af6-bd97-00bd9344e575",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e432432e-2db1-49b6-840b-f25ef5626159",
+                            ConcurrencyStamp = "dcb53027-ee39-4d9a-bffc-3bcdf3fb7851",
                             Email = "petegriu@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Peter",
                             NormalizedEmail = "petegriu@gmail.com",
                             NormalizedUserName = "Peter",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGZZsXsmH/Mebv5BawurHGPpKHUbYqU4cl7IbLNKSshr4jm1bva9LnvpxTSWc/RE/w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKWiTixp6BSx1JHMfJ4IW+xMfEIBthN0VQA2x7iVv9GU5jR1h6VsxyJVqmKE2Fr1Dw==",
                             PhoneNumberConfirmed = false,
+                            ProfileImagePath = "doctor_1.png",
                             SecurityStamp = "",
                             Specialization = "Allergist/Immunologist",
                             Surname = "Petegriu",
@@ -315,15 +320,16 @@ namespace Scheduling.Migrations
                         {
                             Id = "a12be9c5-aa65-4af6-bd97-00bd9344e5751d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4c012dba-b1b8-4922-9c8f-571244193293",
+                            ConcurrencyStamp = "dd2d7966-f585-4f1e-8a1d-6cc16301f076",
                             Email = "soros@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Anna",
                             NormalizedEmail = "soros@gmail.com",
                             NormalizedUserName = "Anna",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFgqi9X9nG9wQKlOzkOw7BRLQb1nLEBiw6fnw20yFuBr/eJSqDwWrc+ZN9GUnze26g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIypmn5wwzWmTOti1xZkWiMryiRra9zSVOMu+TLz2xOZ0A1Z6ztOuyqC4dZTVTTs7g==",
                             PhoneNumberConfirmed = false,
+                            ProfileImagePath = "doctor.png",
                             SecurityStamp = "",
                             Specialization = "Cardiologist",
                             Surname = "Soros",
@@ -335,15 +341,16 @@ namespace Scheduling.Migrations
                         {
                             Id = "a12be9c5-aa65-4af6-bd97-00bd9344e5752d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5cdbb995-6450-4f1d-8ea8-3bb9827082b3",
+                            ConcurrencyStamp = "aa0738e4-0b77-4565-ac02-edfe2388b0dd",
                             Email = "stupak@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "Julia",
                             NormalizedEmail = "stupak@gmail.com",
                             NormalizedUserName = "Julia",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOuMLlLr1gN1BP7EH38KN+kXFDlUKcg1tKrDf952dZw7wMMvkazl2ll5f7s1RcFanQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIfr0aTbi0JwHvHGY0++3RF+TgJdF2e+oIcBMU1lH3oXYWp+D81TTQMmvAZRIbFH0Q==",
                             PhoneNumberConfirmed = false,
+                            ProfileImagePath = "doctor.png",
                             SecurityStamp = "",
                             Specialization = "Dermatologist",
                             Surname = "Stupak",

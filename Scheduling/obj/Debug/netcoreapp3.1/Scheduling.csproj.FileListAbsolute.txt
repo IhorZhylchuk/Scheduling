@@ -95,4 +95,8 @@ C:\Users\Igor\source\repos\Scheduling\Scheduling\obj\Debug\netcoreapp3.1\Schedul
 C:\Users\Igor\source\repos\Scheduling\Scheduling\obj\Debug\netcoreapp3.1\Scheduling.genruntimeconfig.cache
 C:\Users\Igor\source\repos\Scheduling\Scheduling\obj\Debug\netcoreapp3.1\Razor\Views\Home\TimeSlot.cshtml.g.cs
 C:\Users\Igor\source\repos\Scheduling\Scheduling\obj\Debug\netcoreapp3.1\Razor\Views\Home\TimeSlot - Копировать.cshtml.g.cs
+C:\Users\Igor\source\repos\Scheduling\Scheduling\obj\Debug\netcoreapp3.1\Razor\Views\Home\Specialists - Копировать.cshtml.g.cs
+C:\Users\Igor\source\repos\Scheduling\Scheduling\obj\Debug\netcoreapp3.1\Razor\Views\Home\Reservation.cshtml.g.cs
+C:\Users\Igor\source\repos\Scheduling\Scheduling\obj\Debug\netcoreapp3.1\Razor\Views\Home\Details.cshtml.g.cs
 C:\Users\Igor\source\repos\Scheduling\Scheduling\obj\Debug\netcoreapp3.1\Scheduling.csprojAssemblyReference.cache
+C:\Users\Igor\source\repos\Scheduling\Scheduling\obj\Debug\netcoreapp3.1\Razor\Views\Home\MakeReservation.cshtml.g.cs

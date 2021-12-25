@@ -171,6 +171,7 @@ namespace Scheduling.Models
                 NormalizedEmail = "sara@gmail.com",
                 Gender = "Female",
                 PasswordHash = hasher.HashPassword(null, "demo"),
+                ProfileImagePath = "doctor.png",
                 SecurityStamp = string.Empty
             },
 
@@ -187,6 +188,7 @@ namespace Scheduling.Models
                 Email = "petegriu@gmail.com",
                 Specialization = "Allergist/Immunologist",
                 PasswordHash = hasher.HashPassword(null, "demo"),
+                ProfileImagePath = "doctor_1.png",
                 SecurityStamp = string.Empty
                 },
                 new MyUsersIdentity
@@ -202,6 +204,7 @@ namespace Scheduling.Models
                 Email = "soros@gmail.com",
                 Specialization = "Cardiologist",
                 PasswordHash = hasher.HashPassword(null, "demo"),
+                ProfileImagePath = "doctor.png",
                 SecurityStamp = string.Empty
                 },
                 new MyUsersIdentity
@@ -217,6 +220,7 @@ namespace Scheduling.Models
                 Email = "stupak@gmail.com",
                 Specialization = "Dermatologist",
                 PasswordHash = hasher.HashPassword(null, "demo"),
+                ProfileImagePath = "doctor.png",
                 SecurityStamp = string.Empty
                 }
             };

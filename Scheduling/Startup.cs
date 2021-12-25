@@ -68,7 +68,7 @@ namespace Scheduling
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                     pattern: "{controller=Home}/{action=TimeSlot}/{id?}");
+                     pattern: "{controller=Home}/{action=Specialists}/{id?}");
 
             });
         }
